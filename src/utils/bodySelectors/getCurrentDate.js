@@ -10,44 +10,60 @@ export type CurrentDateObjectType = {
 
 const getCurrentDate = (body: string): Promise<CurrentDateObjectType> => {
   const dom = new JSDOM(body);
-  const ShamsiNumeralDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-shamsi .dateTypeBody .numeral")
-      .textContent.split("/")
-      .join("-")
-  );
+
+  const ShamsiNumeralDateBeforeProcess = dom.window.document
+    .querySelector(".today-shamsi .dateNumeral")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
+  const ShamsiNumeralDate = toEnglishDigits(ShamsiNumeralDateBeforeProcess);
+
+  const ShamsiNormalTextDateBeforeProcess = dom.window.document
+    .querySelector(".today-shamsi .dateText")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
   const ShamsiNormalTextDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-shamsi .dateTypeBody .date")
-      .textContent.split("/")
-      .join("-")
+    ShamsiNormalTextDateBeforeProcess
   );
 
+  const GregorianNumeralDateBeforeProcess = dom.window.document
+    .querySelector(".today-gregorian .dateNumeral")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
   const GregorianNumeralDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-gregorian .dateTypeBody .numeral")
-      .textContent.split("/")
-      .join("-")
-  );
-  const GregorianNormalTextDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-gregorian .dateTypeBody .date")
-      .textContent.split("/")
-      .join("-")
+    GregorianNumeralDateBeforeProcess
   );
 
-  const HijriNumeralDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-hijri .dateTypeBody .numeral")
-      .textContent.split("/")
-      .join("-")
+  const GregorianNormalTextDateBeforeProcess = dom.window.document
+    .querySelector(".today-gregorian .dateText")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
+  const GregorianNormalTextDate = toEnglishDigits(
+    GregorianNormalTextDateBeforeProcess
   );
-  const HijriNormalTextDate = toEnglishDigits(
-    dom.window.document
-      .querySelector(".today-hijri .dateTypeBody .date")
-      .textContent.split("/")
-      .join("-")
-  );
+
+  const HijriNumeralDateBeforeProcess = dom.window.document
+    .querySelector(".today-hijri .dateNumeral")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
+  const HijriNumeralDate = toEnglishDigits(HijriNumeralDateBeforeProcess);
+
+  const HijriNormalTextDateBeforeProcess = dom.window.document
+    .querySelector(".today-hijri .dateText")
+    .textContent.toString()
+    .split("/")
+    .join("-")
+    .trim();
+  const HijriNormalTextDate = toEnglishDigits(HijriNormalTextDateBeforeProcess);
 
   return Promise.resolve({
     shamsi: {
