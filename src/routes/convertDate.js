@@ -34,10 +34,10 @@ route.get(
         convertlcId = "1065";
         break;
       case "hijri":
-        convertlcId = "1065";
+        convertlcId = "1025";
         break;
       case "gregorian":
-        convertlcId = "1025";
+        convertlcId = "1033";
         break;
       default:
         throw new BadRequest(
@@ -48,6 +48,7 @@ route.get(
     const url = `${loadEnv(
       "TIME_IR_MAIN_URL"
     )}/?convertyear=${+year}&convertmonth=${+month}&convertday=${+day}&convertlcid=${+convertlcId}`;
+    console.log(url);
 
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) =>
