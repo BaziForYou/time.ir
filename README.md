@@ -66,6 +66,39 @@ $ npm install -g pm2
 then
 $ pm2 start dist/index.js --name="a name"
 ```
+## Docker Usage Guide
+
+To utilize Docker effectively for your project, follow these steps:
+
+### 1. Edit the `.env` File
+Begin by editing the `.env` file to configure your environment settings as required.
+
+### 2. Using Docker Compose
+Docker Compose simplifies the setup process. Start by building the containers:
+```
+$ docker-compose build
+```
+Next, you can run the build with the following command:
+```
+$ docker-compose up -d
+```
+
+### 3. Using Normal Docker
+If you prefer using regular Docker commands, follow these steps:
+
+#### Build the Container
+Run the command below to build the container (replace `time.ir` with your preferred container name):
+```
+$ docker build -t time.ir .
+```
+
+#### Customize Container Port
+Adjust the container's port based on the configuration in your `.env` file. Replace `[port]` with the desired port number:
+```
+$ docker run -d --env-file .env -p [port]:[port] --name time.ir time.ir
+```
+
+By following these steps, you should have Docker set up and running smoothly for your project. Should you encounter any issues, double-check your configuration settings in the `.env` file and review the commands used for building and running containers.
 
 #
 

@@ -8,3 +8,5 @@ Dockerfile
 .gitignore
 .eslintignore
 .dockerignore
+
+winston.log
