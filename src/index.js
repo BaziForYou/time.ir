@@ -13,7 +13,7 @@ winston.configure({
       level: loadEnv("CONSOLE_LOG_LEVEL")
     }),
     new winston.transports.File({
-      filename: "./winston.log",
+      filename: `./logs/winston.log`,
       json: true,
       timestamp: true,
       level: loadEnv("FILE_LOG_LEVEL")

@@ -95,7 +95,7 @@ $ docker build -t time.ir .
 #### Customize Container Port
 Adjust the container's port based on the configuration in your `.env` file. Replace `[port]` with the desired port number:
 ```
-$ docker run -d --env-file .env -p [port]:[port] --name time.ir time.ir
+$ docker run -d --env-file .env -p [port]:[port] -v $PWD/logs:/logs --name time.ir time.ir
 ```
 
 By following these steps, you should have Docker set up and running smoothly for your project. Should you encounter any issues, double-check your configuration settings in the `.env` file and review the commands used for building and running containers.

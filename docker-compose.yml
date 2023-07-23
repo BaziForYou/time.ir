@@ -12,6 +12,8 @@ services:
       - NODE_ENV=${NODE_ENV:-development}
       - CONSOLE_LOG_LEVEL=${CONSOLE_LOG_LEVEL:-debug}
       - FILE_LOG_LEVEL=${FILE_LOG_LEVEL:-error}
+    volumes:
+      - $PWD/logs:/logs
     ports:
       - "${PORT:-3000}:${PORT:-3000}"
     restart: unless-stopped
