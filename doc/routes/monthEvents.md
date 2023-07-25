@@ -21,13 +21,16 @@ Returns all events of a month.
 
 ```json
 {
-  "events": [
-    {
-      "day": "string",
-      "event": "string",
-      "isHoliday": "boolean"
-    }
-  ]
+  "day": {
+    "isHoliday": "boolean",
+    "events": [
+      {
+        "date": "string",
+        "event": "string",
+        "isHoliday": "boolean"
+      }
+    ]
+  }
 }
 ```
 
@@ -44,33 +47,71 @@ Returns all events of a month.
 
 **Request**
 
-    GET /events?year=1397&month=07
+    GET /events?year=1397&month=02
 
 **Return**
 
 ```json
 {
-  "events": [
-    {
-      "day": "1",
-      "event": "روز بزرگداشت ابوعلی سینا و روز پزشک",
-      "isHoliday": false
-    },
-    {
-      "day": "2",
-      "event": "آغاز هفته دولت",
-      "isHoliday": false
-    },
-    {
-      "day": "4",
-      "event": "زادروز داراب (کوروش)",
-      "isHoliday": false
-    },
-    {
-      "day": "8",
-      "event": "عید سعید غر خم [ ١٨ ذوالحجه ]",
-      "isHoliday": true
-    }
-  ]
+  "1":{
+    "isHoliday":false,
+    "events":[
+      {
+        "date":"1397-02-01",
+        "event":"روز بزرگداشت سعدی",
+        "isHoliday":false
+      },
+      {
+        "date":"1397-02-01",
+        "event":"ولادت ابوالفضل العباس علیه السلام و روز جانباز [ 4 شعبان ]",
+        "isHoliday":false
+      }
+    ]
+  },
+  "2":{
+    "isHoliday":false,
+    "events":[
+      {
+        "date":"1397-02-02",
+        "event":"جشن گیاه آوری؛ روز زمین [ 22 April ]",
+        "isHoliday":false
+      },
+      {
+        "date":"1397-02-02",
+        "event":"ولادت امام زین العابدین علیه السلام [ 5 شعبان ]",
+        "isHoliday":false
+      }
+    ]
+  },
+  "3":{
+    "isHoliday":false,
+    "events":[
+      {
+        "date":"1397-02-03",
+        "event":"روزبزرگداشت شیخ بهایی؛ روزملی کارآفرینی؛ روز معماری",
+        "isHoliday":false
+      }
+    ]
+  },
+  "7":{
+    "isHoliday":false,
+    "events":[
+      {
+        "date":"1397-02-07",
+        "event":"روز جهانی طراحی و گرافیک [ 27 April ]",
+        "isHoliday":false
+      }
+    ]
+  },
+  "8":{
+    "isHoliday":false,
+    "events":[
+      {
+        "date":"1397-02-08",
+        "event":"ولادت علی اکبر علیه السلام و روز جوان [ 11 شعبان ]",
+        "isHoliday":false
+      }
+    ]
+  }
 }
 ```

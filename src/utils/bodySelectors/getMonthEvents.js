@@ -4,14 +4,18 @@ import toEnglishDigits from "../toEnglishDigits";
 import updateEventString from "../updateEventString";
 
 export type MonthEventResponseType = {
-  day: string | number,
+  date: string,
   event: string,
   isHoliday: boolean
 };
 
-const getDayEvents = (body: string): Promise<Array<MonthEventResponseType>> => {
+const getDayEvents = (
+  body: string,
+  month: string | number,
+  year: string | number
+): Promise<Array<MonthEventResponseType>> => {
   let getEventsFromHtml = {};
-  const events = [];
+  const events = {};
   const dom = new JSDOM(body);
   const getElementWithClass = dom.window.document.querySelector(
     ".eventsCurrentMonthTitle"
@@ -22,11 +26,26 @@ const getDayEvents = (body: string): Promise<Array<MonthEventResponseType>> => {
 
   Object.keys(getEventsFromHtml).map((eventKey: string) => {
     const event = getEventsFromHtml[eventKey].textContent.trim();
+    const day = toEnglishDigits(event.match(/^[۰-۹]+/g).shift());
+    const isHoliday = getEventsFromHtml[eventKey].classList.contains(
+      "eventHoliday"
+    );
+    const eventString = toEnglishDigits(updateEventString(event));
+    const date = `${year}-${month.length === 1 ? `0${month}` : month}-${
+      day.length === 1 ? `0${day}` : day
+    }`;
+    if (!events[day]) {
+      events[day] = {
+        isHoliday: false,
+        events: []
+      };
+    }
+    if (isHoliday) events[day].isHoliday = true;
 
-    return events.push({
-      day: toEnglishDigits(event.match(/^[۱-۹]+/g).shift()),
-      event: updateEventString(event),
-      isHoliday: getEventsFromHtml[eventKey].classList.contains("eventHoliday")
+    return events[day].events.push({
+      date: date,
+      event: eventString,
+      isHoliday: isHoliday
     });
   });
 
