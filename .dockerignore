@@ -2,6 +2,7 @@ dist
 test
 doc
 .circleci
+node_modules
 
 *.md
 Dockerfile
