@@ -6,6 +6,7 @@ const updateEventString = (string: string) => {
     "اردیبهشت",
     "خرداد",
     "تیر",
+    "اَمرداد",
     "مرداد",
     "شهریور",
     "مهر",
@@ -15,11 +16,18 @@ const updateEventString = (string: string) => {
     "بهمن",
     "اسفند"
   ];
-  persianMonths.map((month: string) => {
-    string = string.replace(month, "");
-  });
+  string = string
+    .split(" ")
+    .map((word: string) => {
+      if (persianMonths.includes(word.trim())) {
+        return "";
+      } else {
+        return word;
+      }
+    })
+    .join(" ");
   return string
-    .replace(/^[۱-۹]+/g, "")
+    .replace(/^[۰-۹]+/g, "")
     .replace(/\s\s+/g, " ")
     .trim();
 };
