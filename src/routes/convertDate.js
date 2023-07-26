@@ -47,7 +47,7 @@ route.get(
 
     const url = `${loadEnv(
       "TIME_IR_MAIN_URL"
-    )}/?convertyear=${+year}&convertmonth=${+month}&convertday=${+day}&convertlcid=${+convertlcId}`;
+    )}/fa/convert-date/?convertyear=${+year}&convertmonth=${+month}&convertday=${+day}&convertlcid=${+convertlcId}`;
 
     return promisifyRequest(url)
       .then((response: { statusCode: number, body: string }) =>
