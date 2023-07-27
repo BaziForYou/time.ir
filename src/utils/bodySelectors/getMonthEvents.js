@@ -22,15 +22,38 @@ const getDayEvents = (
   );
 
   if (getElementWithClass)
-    getEventsFromHtml = getElementWithClass.nextElementSibling.children;
-
-  Object.keys(getEventsFromHtml).map((eventKey: string) => {
-    const event = getEventsFromHtml[eventKey].textContent.trim();
-    const day = toEnglishDigits(event.match(/^[۰-۹]+/g).shift());
-    const isHoliday = getEventsFromHtml[eventKey].classList.contains(
-      "eventHoliday"
+    getEventsFromHtml = Array.from(
+      getElementWithClass.nextElementSibling.children
     );
-    const eventString = toEnglishDigits(updateEventString(event));
+
+  getEventsFromHtml.forEach(eventElement => {
+    const event = eventElement.textContent.trim();
+    const eventDate = eventElement.querySelector(
+      "span[id^='ctl00_cphTop_Sampa_Web_View_EventUI_EventCalendarSimple30cphTop_']"
+    )
+      ? toEnglishDigits(
+          eventElement.querySelector(
+            "span[id^='ctl00_cphTop_Sampa_Web_View_EventUI_EventCalendarSimple30cphTop_']"
+          ).textContent
+        ).trim()
+      : "";
+    const additionalInfoExtraction = eventElement.querySelector(
+      "span[style='white-space: nowrap']"
+    )
+      ? eventElement
+          .querySelector("span[style='white-space: nowrap']")
+          .textContent.trim()
+      : "";
+    const additionalInfo =
+      additionalInfoExtraction.length > 0
+        ? toEnglishDigits(additionalInfoExtraction)
+            .substring(1, additionalInfoExtraction.length - 1)
+            .trim()
+        : "";
+    const day = Number(toEnglishDigits(event.match(/^[۰-۹]+/g).shift()));
+    if (!day) return;
+    const isHoliday = eventElement.classList.contains("eventHoliday");
+    const eventString = updateEventString(toEnglishDigits(event), eventDate);
     const date = `${year}-${month.length === 1 ? `0${month}` : month}-${
       day.length === 1 ? `0${day}` : day
     }`;
@@ -44,6 +67,8 @@ const getDayEvents = (
 
     return events[day].events.push({
       date: date,
+      stringDate: eventDate,
+      additionalInfo: additionalInfo,
       event: eventString,
       isHoliday: isHoliday
     });
